@@ -11,7 +11,9 @@ namespace ConsoleApplication
             //1 1 2 2 2 1 1 1
             //if you win after 40 you win game
             var _game = new Game();
-            _game.TrackScores(args);
+            var result = _game.TrackScores(args);
+            Console.WriteLine(result);        
+            Console.ReadLine();
         }
     }
 }

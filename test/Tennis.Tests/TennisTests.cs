@@ -16,10 +16,32 @@ namespace Tests
         [Fact]
         public void ReturnNoScoresIfNoScoresGiven() 
         {
-            var args = new string[0];
-            var scores = _game.TrackScores(args);
+            var scores = new string[0];
+            var results = _game.TrackScores(scores);
             
-            Assert.Equal(string.Empty, scores);
+            Assert.Equal(string.Empty, results);
+        }
+
+        [Fact]
+        public void IncorrectFormattingReturnsErrorMessage()
+        {
+            var scores = new string[1]{"Life on Mars"};
+            var results = _game.TrackScores(scores);
+
+            const string expected = "Uh oh. I'm expecting a row of numbers! Not this nonsense";
+
+            Assert.Equal(expected, results);
+        }
+
+        [Fact]
+        public void ScoresReturnStringEquivalentIfScoresOnlyAgainstOnePlayer()
+        {
+            var scores = new string[2]{"1","1"};
+            var results = _game.TrackScores(scores);
+
+            const string expected = "Thirty - love, to player one";
+
+            Assert.Equal(expected, results);
         }
     }
 }
