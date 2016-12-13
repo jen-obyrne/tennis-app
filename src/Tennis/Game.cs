@@ -4,6 +4,12 @@ namespace ConsoleApplication
 {
     public class Game
     {
+        private readonly ScoreStringBuilder _scoreStringBuilder;
+        public Game()
+        {
+            _scoreStringBuilder = new ScoreStringBuilder();
+        }
+
         public string TrackScores(string[] scores)
         {
             if (scores.Length == 0)
@@ -12,6 +18,7 @@ namespace ConsoleApplication
             }
 
             var playerOneScore = 0;
+            var playerTwoScore = 0;
 
             foreach(var score in scores)
             {
@@ -25,18 +32,32 @@ namespace ConsoleApplication
 
                 if (point == 1)
                 {
-                    playerOneScore =+ 1;
+                    playerOneScore = playerOneScore + 1;
+                }
+                else if (point == 2)
+                {
+                    playerTwoScore = playerTwoScore + 1;
                 }
             }
 
-            if (playerOneScore == 1)
+            if (playerOneScore != playerTwoScore)
             {
-                return "Fifteen - love, to player one";
-            }
-            if (playerOneScore == 2)
+                if (playerOneScore == 1)
+                {
+                    return "Fifteen, love";
+                }
+                if (playerOneScore == 2)
+                {
+                    return "Thirty, love";
+                }
+            } 
+            else
             {
-                return "Thirty - love, to player one";
+                var score = playerOneScore;
+                return _scoreStringBuilder.EqualScores(score);
             }
+
+            
             throw new NotImplementedException("Please create a test first");
         }
     }

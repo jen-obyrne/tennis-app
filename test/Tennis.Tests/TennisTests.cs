@@ -39,7 +39,18 @@ namespace Tests
             var scores = new string[2]{"1","1"};
             var results = _game.TrackScores(scores);
 
-            const string expected = "Thirty - love, to player one";
+            const string expected = "Thirty, love";
+
+            Assert.Equal(expected, results);
+        }
+
+        [Fact]
+        public void ScoresReturnStringEquivalentBothPlayersHaveEqualPoints()
+        {
+            var scores = new string[4]{"1","1","2","2"};
+            var results = _game.TrackScores(scores);
+
+            const string expected = "Thirty all";
 
             Assert.Equal(expected, results);
         }
