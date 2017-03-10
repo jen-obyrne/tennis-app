@@ -1,23 +1,22 @@
-﻿using System;
-using Xunit;
-using ConsoleApplication;
+﻿using Xunit;
+using Tennis.Services;
 
 namespace Tests
 {
     public class TennisTests
     {
-        private readonly Game _game;
+        private readonly GameService _gameService;
         
         public TennisTests()
         {
-            _game = new Game();
+            _gameService = new GameService();
         }
     
         [Fact]
         public void ReturnNoScoresIfNoScoresGiven() 
         {
             var scores = new string[0];
-            var results = _game.TrackScores(scores);
+            var results = _gameService.PlayGame(scores);
             
             Assert.Equal(string.Empty, results);
         }
@@ -26,7 +25,7 @@ namespace Tests
         public void IncorrectFormattingReturnsErrorMessage()
         {
             var scores = new string[1]{"Life on Mars"};
-            var results = _game.TrackScores(scores);
+            var results = _gameService.PlayGame(scores);
 
             const string expected = "Uh oh. I'm expecting a row of numbers! Not this nonsense";
 
@@ -37,7 +36,7 @@ namespace Tests
         public void ScoresReturnStringEquivalentIfScoresOnlyAgainstOnePlayer()
         {
             var scores = new string[2]{"1","1"};
-            var results = _game.TrackScores(scores);
+            var results = _gameService.PlayGame(scores);
 
             const string expected = "Thirty, love";
 
@@ -48,7 +47,7 @@ namespace Tests
         public void ScoresReturnStringEquivalentBothPlayersHaveEqualPoints()
         {
             var scores = new string[4]{"1","1","2","2"};
-            var results = _game.TrackScores(scores);
+            var results = _gameService.PlayGame(scores);
 
             const string expected = "Thirty all";
 

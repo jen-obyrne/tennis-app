@@ -1,16 +1,17 @@
 using System;
+using Tennis.Builders;
 
-namespace ConsoleApplication
+namespace Tennis.Services
 {
-    public class Game
+    public class GameService
     {
-        private readonly ScoreStringBuilder _scoreStringBuilder;
-        public Game()
+        private readonly ScoreStringBuilder _scoreBuilder;
+        public GameService()
         {
-            _scoreStringBuilder = new ScoreStringBuilder();
+            _scoreBuilder = new ScoreStringBuilder();
         }
 
-        public string TrackScores(string[] scores)
+        public string PlayGame(string[] scores)
         {
             if (scores.Length == 0)
             {
@@ -42,23 +43,29 @@ namespace ConsoleApplication
 
             if (playerOneScore != playerTwoScore)
             {
-                if (playerOneScore == 1)
-                {
-                    return "Fifteen, love";
-                }
-                if (playerOneScore == 2)
-                {
-                    return "Thirty, love";
-                }
-            } 
+                return CalculateFinalScores(playerOneScore, playerTwoScore);
+            }
             else
             {
                 var score = playerOneScore;
-                return _scoreStringBuilder.EqualScores(score);
+                return _scoreBuilder.BuildEqualScore(score);
             }
-
             
             throw new NotImplementedException("Please create a test first");
+        }
+
+        private string CalculateFinalScores(int playerOneScore, int playerTwoScore)
+        {
+            if (playerOneScore == 1)
+            {
+                return "Fifteen, love";
+            }
+            if (playerTwoScore == 2)
+            {
+                return "Thirty, love";
+            }
+
+            return "ermegerd";
         }
     }
 }

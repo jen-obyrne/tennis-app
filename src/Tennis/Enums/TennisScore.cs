@@ -1,4 +1,4 @@
-namespace ConsoleApplication
+namespace Tennis.Enums
 {
     public enum TennisScore
     {
